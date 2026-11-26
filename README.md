@@ -2,10 +2,9 @@
 
 **Practical IT automation scripts for macOS and Windows: clean app removal, Intune packaging and asset audits.**
 
-[![Lint](https://github.com/mozalattar/mozlattarscriptmaster/actions/workflows/lint.yml/badge.svg)](https://github.com/mozalattar/mozlattarscriptmaster/actions/workflows/lint.yml)
-![Platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20Windows-0a7ea4)
-![Shell](https://img.shields.io/badge/scripts-Bash%20%7C%20PowerShell-2b3137)
-[![License](https://img.shields.io/badge/license-custom%20(non--commercial)-lightgrey)](LICENSE)
+[![Lint](https://github.com/mozalattar/mozlattarscriptmaster/actions/workflows/lint.yml/badge.svg)](https://github.com/mozalattar/mozlattarscriptmaster/actions/workflows/lint.yml) [![Release](https://github.com/mozalattar/mozlattarscriptmaster/actions/workflows/release.yml/badge.svg)](https://github.com/mozalattar/mozlattarscriptmaster/releases/latest)
+
+**Platforms:** macOS · Windows  |  **Languages:** Bash · PowerShell  |  **Latest release:** [v2.0.0](https://github.com/mozalattar/mozlattarscriptmaster/releases/latest)
 
 Scripts written and used in real enterprise environments (Microsoft Intune, macOS fleets, IT audits). Every script explains what it will do before it does it, and the destructive ones support a `--dry-run` mode.
 
