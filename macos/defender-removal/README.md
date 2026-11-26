@@ -38,4 +38,4 @@ Upload `uninstall_defender.sh` under **Devices → macOS → Shell scripts** and
 Microsoft reference: [Uninstall Defender for Endpoint on Mac](https://learn.microsoft.com/defender-endpoint/mac-resources#uninstalling)
 
 ---
-Part of [MozlattarScriptMaster](../../README.md) · by Mohammed AlAttar
+Part of [IT Automation Toolkit](../../README.md) · by Mohammed AlAttar

@@ -179,4 +179,4 @@ This tool was purpose-built to support IT General Control Reviews and asset audi
 Built by **Mohammed AlAttar**, IT manager and systems engineer with 19+ years of IT experience. More about the author, other tools and contact details in the [main README](../../README.md#about-the-author).
 
 ---
-Part of [MozlattarScriptMaster](../../README.md) · See the [LICENSE](../../LICENSE)
+Part of [IT Automation Toolkit](../../README.md) · See the [LICENSE](../../LICENSE)

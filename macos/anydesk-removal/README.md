@@ -28,4 +28,4 @@ sudo ./uninstall_anydesk.sh             # remove, asks before starting
 The script cleans every user's folder when run as root, so it works as an Intune or Jamf shell script. Run it as **root** with `--yes`.
 
 ---
-Part of [MozlattarScriptMaster](../../README.md) · by Mohammed AlAttar
+Part of [IT Automation Toolkit](../../README.md) · by Mohammed AlAttar

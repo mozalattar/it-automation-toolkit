@@ -1,7 +1,7 @@
 blank_issues_enabled: false
 contact_links:
   - name: Security problem
-    url: https://github.com/mozalattar/mozlattarscriptmaster/blob/main/SECURITY.md
+    url: https://github.com/mozalattar/it-automation-toolkit/blob/main/SECURITY.md
     about: Please report security issues privately by email, not as a public issue.
   - name: Contact the author
     url: https://mohammedalattarai.com

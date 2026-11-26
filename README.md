@@ -1,10 +1,10 @@
-# MozlattarScriptMaster
+# IT Automation Toolkit
 
 **Practical IT automation scripts for macOS and Windows: clean app removal, Intune packaging and asset audits.**
 
-[![Lint](https://github.com/mozalattar/mozlattarscriptmaster/actions/workflows/lint.yml/badge.svg)](https://github.com/mozalattar/mozlattarscriptmaster/actions/workflows/lint.yml) [![Release](https://github.com/mozalattar/mozlattarscriptmaster/actions/workflows/release.yml/badge.svg)](https://github.com/mozalattar/mozlattarscriptmaster/releases/latest)
+[![Lint](https://github.com/mozalattar/it-automation-toolkit/actions/workflows/lint.yml/badge.svg)](https://github.com/mozalattar/it-automation-toolkit/actions/workflows/lint.yml) [![Release](https://github.com/mozalattar/it-automation-toolkit/actions/workflows/release.yml/badge.svg)](https://github.com/mozalattar/it-automation-toolkit/releases/latest)
 
-**Platforms:** macOS · Windows  |  **Languages:** Bash · PowerShell  |  **Latest release:** [v2.0.0](https://github.com/mozalattar/mozlattarscriptmaster/releases/latest)
+**Platforms:** macOS · Windows  |  **Languages:** Bash · PowerShell  |  **Latest release:** [v2.0.0](https://github.com/mozalattar/it-automation-toolkit/releases/latest)
 
 Scripts written and used in real enterprise environments (Microsoft Intune, macOS fleets, IT audits). Every script explains what it will do before it does it, and the destructive ones support a `--dry-run` mode.
 
@@ -25,8 +25,8 @@ Scripts written and used in real enterprise environments (Microsoft Intune, macO
 **macOS**
 
 ```bash
-git clone https://github.com/mozalattar/mozlattarscriptmaster.git
-cd mozlattarscriptmaster/macos/anydesk-removal
+git clone https://github.com/mozalattar/it-automation-toolkit.git
+cd it-automation-toolkit/macos/anydesk-removal
 chmod +x uninstall_anydesk.sh
 sudo ./uninstall_anydesk.sh --dry-run   # preview first
 sudo ./uninstall_anydesk.sh             # then run it
@@ -35,13 +35,13 @@ sudo ./uninstall_anydesk.sh             # then run it
 **Windows (PowerShell)**
 
 ```powershell
-git clone https://github.com/mozalattar/mozlattarscriptmaster.git
-cd mozlattarscriptmaster\windows\lenovo-warranty
+git clone https://github.com/mozalattar/it-automation-toolkit.git
+cd it-automation-toolkit\windows\lenovo-warranty
 Copy-Item serials.example.txt serials.txt   # then add your serials
 .\Run-WarrantyCheck.ps1
 ```
 
-Ready-to-run downloads (including the compiled `IntuneWinAppUtilGUI.exe`) are on the [Releases](https://github.com/mozalattar/mozlattarscriptmaster/releases) page.
+Ready-to-run downloads (including the compiled `IntuneWinAppUtilGUI.exe`) are on the [Releases](https://github.com/mozalattar/it-automation-toolkit/releases) page.
 
 ## Using them safely
 
@@ -53,7 +53,7 @@ Ready-to-run downloads (including the compiled `IntuneWinAppUtilGUI.exe`) are on
 ## Repository layout
 
 ```
-mozlattarscriptmaster/
+it-automation-toolkit/
 ├── macos/
 │   ├── anydesk-removal/      uninstall_anydesk.sh
 │   ├── cache-cleaner/        clear_caches.sh
@@ -79,7 +79,7 @@ Education: Master's in Computer Security Engineering & Artificial Intelligence.
 
 ## Feedback and security
 
-Found a bug or have an idea? [Open an issue](https://github.com/mozalattar/mozlattarscriptmaster/issues). For security problems, see [SECURITY.md](SECURITY.md).
+Found a bug or have an idea? [Open an issue](https://github.com/mozalattar/it-automation-toolkit/issues). For security problems, see [SECURITY.md](SECURITY.md).
 
 ## License
 

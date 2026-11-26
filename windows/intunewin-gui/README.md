@@ -26,7 +26,7 @@ IntuneWinAppUtil GUI is a PowerShell-based graphical interface for the Microsoft
      ```
 
 2. **Download the Files**:
-   - Download `IntuneWinAppUtilGUI.exe` from the [Releases](https://github.com/mozalattar/mozlattarscriptmaster/releases) page, or clone this repository to use the `.ps1`.
+   - Download `IntuneWinAppUtilGUI.exe` from the [Releases](https://github.com/mozalattar/it-automation-toolkit/releases) page, or clone this repository to use the `.ps1`.
    - Download `IntuneWinAppUtil.exe` from the Microsoft repository.
 
 3. **Setup**:
@@ -37,7 +37,7 @@ IntuneWinAppUtil GUI is a PowerShell-based graphical interface for the Microsoft
    - `IntuneWinAppUtil.exe`
 
    **EXE (portable) mode**
-   - `IntuneWinAppUtilGUI.exe` (download it from the [Releases](https://github.com/mozalattar/mozlattarscriptmaster/releases) page)
+   - `IntuneWinAppUtilGUI.exe` (download it from the [Releases](https://github.com/mozalattar/it-automation-toolkit/releases) page)
    - `IntuneWinAppUtil.exe`
 
 ## Usage

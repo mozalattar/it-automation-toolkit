@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1 (November 2026)
+- The repository is renamed from `mozlattarscriptmaster` to **`it-automation-toolkit`**. Old links redirect automatically.
+- New issue forms, social preview image and GitHub-hosted badges.
+
 ## 2.0.0 (November 2026)
 
 A full clean-up of the repository.

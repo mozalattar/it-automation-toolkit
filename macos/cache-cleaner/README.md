@@ -25,4 +25,4 @@ chmod +x clear_caches.sh
 - Only your own caches are touched; system files and other users are left alone.
 
 ---
-Part of [MozlattarScriptMaster](../../README.md) · by Mohammed AlAttar
+Part of [IT Automation Toolkit](../../README.md) · by Mohammed AlAttar
