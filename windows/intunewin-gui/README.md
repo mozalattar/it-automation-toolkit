@@ -6,6 +6,7 @@ IntuneWinAppUtil GUI is a PowerShell-based graphical interface for the Microsoft
 
 - **User-Friendly Interface**: Simplifies the packaging process with a graphical interface.
 - **Drag-and-Drop**: Supports drag-and-drop functionality for source folders and setup files.
+- **Paths with spaces**: Folder and file names with spaces work.
 - **Browse Buttons**: Allows users to browse and select the source folder, setup file, and output folder.
 - **Automated Packaging**: Automates the command-line usage of the Microsoft Win32 Content Prep Tool.
 - **Portable Mode**: Can be run as a PowerShell script or as a standalone EXE.
@@ -25,7 +26,7 @@ IntuneWinAppUtil GUI is a PowerShell-based graphical interface for the Microsoft
      ```
 
 2. **Download the Files**:
-   - Clone or download this repository.
+   - Download `IntuneWinAppUtilGUI.exe` from the [Releases](https://github.com/mozalattar/mozlattarscriptmaster/releases) page, or clone this repository to use the `.ps1`.
    - Download `IntuneWinAppUtil.exe` from the Microsoft repository.
 
 3. **Setup**:
@@ -36,7 +37,7 @@ IntuneWinAppUtil GUI is a PowerShell-based graphical interface for the Microsoft
    - `IntuneWinAppUtil.exe`
 
    **EXE (portable) mode**
-   - `IntuneWinAppUtilGUI.exe`
+   - `IntuneWinAppUtilGUI.exe` (download it from the [Releases](https://github.com/mozalattar/mozlattarscriptmaster/releases) page)
    - `IntuneWinAppUtil.exe`
 
 ## Usage
@@ -94,11 +95,13 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File ".\IntuneWinAppUtil
 
 ## Screenshots
 
-- **Running the Script**:
--   ![Run with PowerShell](https://raw.githubusercontent.com/mozalattar/mozlattarscriptmaster/main/IntuneWinAppUtil-GUI/Running%20the%20Script.png)
+**Running the script**
 
-- **GUI Interface**:
--   ![GUI Interface](https://raw.githubusercontent.com/mozalattar/mozlattarscriptmaster/main/IntuneWinAppUtil-GUI/GUI%20Interface.png)
+![Running the script from PowerShell](running-the-script.png)
+
+**The GUI**
+
+![IntuneWinAppUtil GUI window](gui-interface.png)
 
 ## Notes
 
@@ -106,9 +109,18 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File ".\IntuneWinAppUtil
 - EXE mode is fully portable and recommended for end users.
 - Use Windows PowerShell 5.1 for best WinForms compatibility when running the `.ps1`.
 
+## Building the EXE yourself
+
+The EXE is built automatically for every release. To build it locally with [PS2EXE](https://github.com/MScholtes/PS2EXE):
+
+```powershell
+Install-Module ps2exe -Scope CurrentUser
+Invoke-ps2exe .\IntuneWinAppUtilGUI.ps1 .\IntuneWinAppUtilGUI.exe -noConsole -STA
+```
+
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+See the [LICENSE](../../LICENSE) in the repository root.
 
 ## Disclaimer
 

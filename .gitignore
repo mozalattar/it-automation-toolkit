@@ -1,0 +1,10 @@
+# Local input and output of the tools
+windows/lenovo-warranty/serials.txt
+windows/lenovo-warranty/warranty_results.csv
+*.intunewin
+IntuneWinAppUtil.exe
+IntuneWinAppUtilGUI.exe
+
+# OS clutter
+.DS_Store
+Thumbs.db

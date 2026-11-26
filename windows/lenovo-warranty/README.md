@@ -2,7 +2,7 @@
 
 ## About
 
-Welcome to **LenovoWarrantyScanner**, a PowerShell-based tool for bulk Lenovo warranty lookups built by Mohammed AlAttar, Senior Systems Engineer with 19+ years of IT experience. This tool was developed to support enterprise IT asset management and audit readiness — specifically designed to cross-check thousands of Lenovo device serials against Lenovo's warranty API and populate an asset inventory with accurate purchase year and device age data.
+Welcome to **LenovoWarrantyScanner**, a PowerShell-based tool for bulk Lenovo warranty lookups built by Mohammed AlAttar, IT manager and systems engineer with 19+ years of IT experience. This tool was developed to support enterprise IT asset management and audit readiness — specifically designed to cross-check thousands of Lenovo device serials against Lenovo's warranty API and populate an asset inventory with accurate purchase year and device age data.
 
 Built and battle-tested across 750+ devices during a live IT General Control Review audit.
 
@@ -33,15 +33,13 @@ Built and battle-tested across 750+ devices during a live IT General Control Rev
 
 ## Usage
 
-### Step 1 — Install the required module
+### Step 1 — Required script (installed automatically)
 
-Open PowerShell as Administrator and run:
+The first run installs `Get-LenovoInfo` from the PowerShell Gallery for your user account; no administrator rights needed. To install it yourself beforehand:
 
 ```powershell
-Install-Script -Name Get-LenovoInfo
+Install-Script -Name Get-LenovoInfo -Scope CurrentUser
 ```
-
-> This installs the `Get-LenovoInfo` script from the PowerShell Gallery, which is used to query Lenovo's warranty API.
 
 ---
 
@@ -63,7 +61,12 @@ Navigate to the script folder:
 cd C:\LenovoWarrantyScanner
 ```
 
-Open `serials.txt` and add your Lenovo serial numbers — one per line:
+Copy the example file, then add your Lenovo serial numbers to `serials.txt`, one per line (blank lines, duplicates and lines starting with `#` are skipped):
+
+```powershell
+Copy-Item serials.example.txt serials.txt
+```
+
 
 ```
 PFXXXXXX
@@ -79,6 +82,12 @@ MPXXXXXX
 
 ```powershell
 .\Run-WarrantyCheck.ps1
+```
+
+Optional parameters:
+
+```powershell
+.\Run-WarrantyCheck.ps1 -SerialsFile C:\Audit\serials.txt -OutputFile C:\Audit\results.csv -DelaySeconds 2
 ```
 
 ---
@@ -114,7 +123,8 @@ Results are automatically saved to `warranty_results.csv` in the same folder:
 ```
 C:\LenovoWarrantyScanner\
 ├── Run-WarrantyCheck.ps1       # Main warranty lookup script
-├── serials.txt                 # Your input serial numbers (one per line)
+├── serials.example.txt         # Example input: copy to serials.txt
+├── serials.txt                 # Your serial numbers (not committed to Git)
 └── warranty_results.csv        # Output — auto-generated after run
 ```
 
@@ -157,39 +167,16 @@ This tool was purpose-built to support IT General Control Reviews and asset audi
 
 ## Notes
 
-- Serials with spaces (e.g. `PFXXX XX`) are handled automatically — the script strips whitespace before querying
-- Duplicate serials in the input list are processed but flagged
+- Serials with spaces (e.g. `PFXXX XX`) are handled automatically — the script removes all spaces before querying
+- Duplicate serials in the input list are checked only once
 - Devices with no Lenovo warranty record return `Age: 0 yrs  Purchased: 2026` — these require manual verification
 - Non-Lenovo serials (HP, Dell, Mac, etc.) return no data and are safely skipped
 
 ---
 
-## Professional Summary
+## Author
 
-Built by **Mohammed AlAttar** — Senior Systems Engineer with 19+ years of IT experience.
-
-Master's degree in Computer Security Engineering & Artificial Intelligence | BSc in Information Technology
-
-### Certifications
-
-- **CISM** — Certified Information Security Manager
-- **PMP** — Project Management Professional
-- **ITIL 4 Foundation**
-- **AWS Certified Solutions Architect – Associate**
-- **CompTIA Security+**
-- **Microsoft 365 Certified: Endpoint Administrator Associate**
-- **Microsoft Certified Azure Administrator Associate**
+Built by **Mohammed AlAttar**, IT manager and systems engineer with 19+ years of IT experience. More about the author, other tools and contact details in the [main README](../../README.md#about-the-author).
 
 ---
-
-## Contact
-
-For inquiries or collaboration:
-
-- **Email**: [mozalattar@gmail.com](mailto:mozalattar@gmail.com)
-- **LinkedIn**: [Mohammed AlAttar](https://www.linkedin.com/in/mohammed-z-alattar/)
-- **GitHub**: [mozalattar](https://github.com/mozalattar)
-
----
-
-> *Built to solve real problems. Tested on real audits.*
+Part of [MozlattarScriptMaster](../../README.md) · See the [LICENSE](../../LICENSE)

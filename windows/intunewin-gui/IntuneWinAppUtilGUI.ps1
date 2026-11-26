@@ -1,10 +1,23 @@
-# IntuneWinAppUtil GUI - PS1 + PS2EXE compatible
+<#
+.SYNOPSIS
+    Graphical front end for Microsoft's Win32 Content Prep Tool (IntuneWinAppUtil.exe).
 
-# --- Ensure WinForms runs in STA ---
-if ([System.Threading.Thread]::CurrentThread.ApartmentState -ne 'STA') {
-    Start-Process -FilePath "powershell.exe" `
-        -ArgumentList "-NoProfile -ExecutionPolicy Bypass -STA -File `"$PSCommandPath`"" `
-        -Verb RunAs
+.DESCRIPTION
+    Pick (or drag and drop) a source folder, the setup file inside it and an
+    output folder, then press Convert to build the .intunewin package for
+    Microsoft Intune. Works as a .ps1 and when compiled to an .exe with PS2EXE.
+    IntuneWinAppUtil.exe must sit in the same folder as this script or EXE.
+
+.NOTES
+    Author: Mohammed AlAttar · https://github.com/mozalattar
+    Requires: Windows PowerShell 5.1 (recommended) or PowerShell 7 on Windows.
+#>
+
+# --- WinForms needs a single-threaded apartment (STA) ---
+# A compiled PS2EXE build already runs in STA; only a .ps1 started from an MTA host is relaunched.
+if ([System.Threading.Thread]::CurrentThread.ApartmentState -ne 'STA' -and $PSCommandPath) {
+    Start-Process -FilePath 'powershell.exe' `
+        -ArgumentList "-NoProfile -ExecutionPolicy Bypass -STA -File `"$PSCommandPath`""
     exit
 }
 
@@ -181,9 +194,10 @@ $outputTextBox.Add_DragDrop({
 
 # -------------------- Convert logic --------------------
 $convertButton.Add_Click({
-    $sourceFolder = $sourceTextBox.Text.Trim()
+    # A trailing backslash would escape the closing quote on the command line, so drop it
+    $sourceFolder = $sourceTextBox.Text.Trim().TrimEnd('\')
     $setupPath    = $setupTextBox.Text.Trim()
-    $outputFolder = $outputTextBox.Text.Trim()
+    $outputFolder = $outputTextBox.Text.Trim().TrimEnd('\')
 
     if (!(Test-Path $sourceFolder)) {
         [System.Windows.Forms.MessageBox]::Show("Source folder not found.","Error") | Out-Null
@@ -212,23 +226,33 @@ $convertButton.Add_Click({
         return
     }
 
-    $args = @("-c", $sourceFolder, "-s", $setupLeaf, "-o", $outputFolder)
+    # Each path is quoted so folders with spaces work; -q runs the tool without prompts
+    $toolArgs = "-c `"$sourceFolder`" -s `"$setupLeaf`" -o `"$outputFolder`" -q"
+    $expected = Join-Path $outputFolder ([System.IO.Path]::GetFileNameWithoutExtension($setupLeaf) + '.intunewin')
 
-    $statusLabel.Text = "Running: IntuneWinAppUtil.exe $($args -join ' ')"
+    $statusLabel.Text = "Running: IntuneWinAppUtil.exe $toolArgs"
+    $convertButton.Enabled = $false
+    $form.Cursor = [System.Windows.Forms.Cursors]::WaitCursor
     $form.Refresh()
 
     try {
-        $p = Start-Process -FilePath $IntuneUtil -ArgumentList $args -NoNewWindow -Wait -PassThru
+        $p = Start-Process -FilePath $IntuneUtil -ArgumentList $toolArgs -WindowStyle Hidden -Wait -PassThru
         if ($p.ExitCode -eq 0) {
-            $statusLabel.Text = "Completed successfully."
-            [System.Windows.Forms.MessageBox]::Show("Conversion Completed","Done") | Out-Null
+            $statusLabel.Text = "Completed: $expected"
+            [System.Windows.Forms.MessageBox]::Show("Package created:`n$expected", "Done",
+                [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information) | Out-Null
         } else {
-            $statusLabel.Text = "Failed. ExitCode: $($p.ExitCode)"
-            [System.Windows.Forms.MessageBox]::Show("Conversion failed. ExitCode: $($p.ExitCode)","Failed") | Out-Null
+            $statusLabel.Text = "Failed. Exit code: $($p.ExitCode)"
+            [System.Windows.Forms.MessageBox]::Show("Conversion failed. Exit code: $($p.ExitCode)", "Failed",
+                [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error) | Out-Null
         }
     } catch {
         $statusLabel.Text = "Failed: $($_.Exception.Message)"
-        [System.Windows.Forms.MessageBox]::Show("Failed: $($_.Exception.Message)","Failed") | Out-Null
+        [System.Windows.Forms.MessageBox]::Show("Failed: $($_.Exception.Message)", "Failed",
+            [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error) | Out-Null
+    } finally {
+        $convertButton.Enabled = $true
+        $form.Cursor = [System.Windows.Forms.Cursors]::Default
     }
 })
 

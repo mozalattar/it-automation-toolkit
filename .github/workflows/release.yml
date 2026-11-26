@@ -1,0 +1,36 @@
+name: Release
+
+# Push a tag like v1.1.0 to build IntuneWinAppUtilGUI.exe from the script
+# and attach it, with every script, to a GitHub Release.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build IntuneWinAppUtilGUI.exe with PS2EXE
+        shell: pwsh
+        run: |
+          Install-Module ps2exe -Force -Scope CurrentUser
+          Invoke-ps2exe -inputFile windows/intunewin-gui/IntuneWinAppUtilGUI.ps1 `
+            -outputFile IntuneWinAppUtilGUI.exe -noConsole -STA `
+            -title 'IntuneWinAppUtil GUI' -company 'Mohammed AlAttar' -version ($env:GITHUB_REF_NAME.TrimStart('v'))
+      - name: Package the macOS scripts
+        shell: pwsh
+        run: |
+          Compress-Archive -Path macos/* -DestinationPath macos-scripts.zip
+          Compress-Archive -Path windows/lenovo-warranty/* -DestinationPath lenovo-warranty.zip
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            IntuneWinAppUtilGUI.exe
+            macos-scripts.zip
+            lenovo-warranty.zip

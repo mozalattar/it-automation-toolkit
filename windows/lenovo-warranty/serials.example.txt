@@ -1,0 +1,4 @@
+# One Lenovo serial number per line. Lines starting with # are ignored.
+# Copy this file to serials.txt and replace the examples below.
+PF0XXXXX
+MP1XXXXX

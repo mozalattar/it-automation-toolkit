@@ -1,40 +1,89 @@
 # MozlattarScriptMaster
 
-## About
+**Practical IT automation scripts for macOS and Windows: clean app removal, Intune packaging and asset audits.**
 
-Welcome to MozlattarScriptMaster, a repository dedicated to showcasing advanced bash scripting techniques and IT solutions. Created by Mohammed AlAttar, a Senior Systems Engineer with 19 years of experience in the IT industry, this repository features scripts designed to automate, optimize, and secure IT environments. Mohammed specializes in cybersecurity, network management, IT optimization, and Microsoft Intune implementation, making me a key player in driving operational excellence and enhancing security compliance across various systems.
+[![Lint](https://github.com/mozalattar/mozlattarscriptmaster/actions/workflows/lint.yml/badge.svg)](https://github.com/mozalattar/mozlattarscriptmaster/actions/workflows/lint.yml)
+![Platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20Windows-0a7ea4)
+![Shell](https://img.shields.io/badge/scripts-Bash%20%7C%20PowerShell-2b3137)
+[![License](https://img.shields.io/badge/license-custom%20(non--commercial)-lightgrey)](LICENSE)
 
-## Key Areas of Expertise:
-- **Cybersecurity Management**: Extensive experience in deploying and managing security solutions such as Trellix ePO, BitLocker, and Zoho ManageEngine, integrated seamlessly with Microsoft Active Directory.
-- **IT Infrastructure Optimization**: Proven track record of optimizing IT performance through automation, data-driven decisions using ManageEngine, and strategic enhancements.
-- **System Automation**: Development of powerful bash scripts for asset management, device enrollment, and security compliance across macOS and Windows environments.
-- **MDM and Intune Solutions**: Expert in deploying and managing Mobile Device Management (MDM) solutions using Microsoft Intune, with scripts that enhance device security, streamline enrollment, and ensure compliance across diverse IT environments.
-- **Network Management**: Skilled in managing complex network setups, including integration of macOS with Microsoft Active Directory, and handling of routers, switches, DNS, and DHCP.
+Scripts written and used in real enterprise environments (Microsoft Intune, macOS fleets, IT audits). Every script explains what it will do before it does it, and the destructive ones support a `--dry-run` mode.
 
-## Features
+---
 
-- **Advanced Bash Scripts**: A collection of scripts designed to automate complex IT tasks, optimize system performance, and enhance security measures across various platforms.
-- **MDM and Intune Integration**: Specialized scripts to support Microsoft Intune and other MDM solutions, focusing on device management, security policy enforcement, and system compliance.
-- **Security Tools**: Scripts for deploying and managing enterprise-level security solutions, ensuring robust protection and compliance with industry standards.
-- **Performance Optimization**: Tools and scripts aimed at improving the efficiency and effectiveness of IT infrastructure, driving user satisfaction and reducing operational issues.
+## Tools
 
-## Professional Summary
-I am a seasoned IT professional with a Master's degree in Computer Security Engineering and Artificial Intelligence, and a Bachelor's degree in Information Technology. My career is marked by successful implementation of Microsoft Intune for over 500 devices, advanced knowledge in cybersecurity, and a proactive approach to IT problem-solving. My expertise extends to project management, automation, and team leadership, making me a valuable asset in any IT-driven organization.
+| Tool | Platform | What it does |
+|---|---|---|
+| [**IntuneWinAppUtil GUI**](windows/intunewin-gui) | Windows | A drag-and-drop window for Microsoft's Win32 Content Prep Tool. Builds `.intunewin` packages without typing commands. |
+| [**Lenovo Warranty Scanner**](windows/lenovo-warranty) | Windows | Checks warranty status, model, purchase year and age for hundreds of Lenovo serials and exports a CSV for asset audits. |
+| [**Microsoft Defender Removal**](macos/defender-removal) | macOS | Removes Microsoft Defender for Endpoint with Microsoft's own uninstaller first, then cleans the leftovers. Other Microsoft apps are untouched. |
+| [**AnyDesk Removal**](macos/anydesk-removal) | macOS | Removes AnyDesk, its background services and the settings of every user. MDM-friendly. |
+| [**macOS Cache Cleaner**](macos/cache-cleaner) | macOS | Clears the user's app caches safely and shows how much space was freed. |
 
-## Certifications
-- **Project Management Professional (PMP)**
-- **ITIL 4 Foundation Certification**
-- **AWS Certified Solutions Architect – Associate**
-- **CompTIA Security+**
-- **Microsoft 365 Certified: Endpoint Administrator Associate**
-- **Microsoft Certified Azure Administrator Associate**
-- **Apple Certified Support Professional (ACSP)**
-- **Google IT Support Professional**
+## Quick start
 
-## Contact
+**macOS**
 
-For inquiries or collaboration:
-- **Email**: [mozalattar@gmail.com](mailto:mozalattar@gmail.com)
-- **LinkedIn**: [Mohammed AlAttar](https://www.linkedin.com/in/mohammed-z-alattar/)
+```bash
+git clone https://github.com/mozalattar/mozlattarscriptmaster.git
+cd mozlattarscriptmaster/macos/anydesk-removal
+chmod +x uninstall_anydesk.sh
+sudo ./uninstall_anydesk.sh --dry-run   # preview first
+sudo ./uninstall_anydesk.sh             # then run it
+```
 
-Feel free to explore the repository, fork it, or contribute to the scripts to further enhance their functionality.
+**Windows (PowerShell)**
+
+```powershell
+git clone https://github.com/mozalattar/mozlattarscriptmaster.git
+cd mozlattarscriptmaster\windows\lenovo-warranty
+Copy-Item serials.example.txt serials.txt   # then add your serials
+.\Run-WarrantyCheck.ps1
+```
+
+Ready-to-run downloads (including the compiled `IntuneWinAppUtilGUI.exe`) are on the [Releases](https://github.com/mozalattar/mozlattarscriptmaster/releases) page.
+
+## Using them safely
+
+- **Preview first.** The macOS scripts support `--dry-run`, which lists everything they would remove and changes nothing.
+- **Test on one machine** before deploying through an MDM.
+- **MDM deployments:** the removal scripts accept `--yes` (no prompts) and clean every user account when run as root, so they work as Intune or Jamf scripts.
+- **Managed software:** if an MDM installed the app, remove its assignment and profiles in the MDM first, or the MDM will reinstall it.
+
+## Repository layout
+
+```
+mozlattarscriptmaster/
+├── macos/
+│   ├── anydesk-removal/      uninstall_anydesk.sh
+│   ├── cache-cleaner/        clear_caches.sh
+│   └── defender-removal/     uninstall_defender.sh
+├── windows/
+│   ├── intunewin-gui/        IntuneWinAppUtilGUI.ps1
+│   └── lenovo-warranty/      Run-WarrantyCheck.ps1
+└── .github/workflows/        lint (ShellCheck, PSScriptAnalyzer) and release builds
+```
+
+Every push is checked automatically with **ShellCheck** and **PSScriptAnalyzer**.
+
+## About the author
+
+**Mohammed AlAttar** is an IT manager and systems engineer with 19+ years across fintech, media and enterprise IT in the UAE and abroad. He specialises in endpoint management (Microsoft Intune, macOS), Microsoft 365 and Azure, security operations and automation.
+
+Certifications: CISM · PMP · ITIL 4 · AWS Solutions Architect – Associate · CompTIA Security+ · Microsoft 365 Endpoint Administrator · Azure Administrator · Apple Certified Support Professional · Google IT Support.
+Education: Master's in Computer Security Engineering & Artificial Intelligence.
+
+- Website: [mohammedalattarai.com](https://mohammedalattarai.com)
+- LinkedIn: [Mohammed AlAttar](https://www.linkedin.com/in/mohammed-z-alattar/)
+- Email: [mozalattar@gmail.com](mailto:mozalattar@gmail.com)
+
+## Feedback and security
+
+Found a bug or have an idea? [Open an issue](https://github.com/mozalattar/mozlattarscriptmaster/issues). For security problems, see [SECURITY.md](SECURITY.md).
+
+## License
+
+Free for personal and internal use; commercial use, redistribution and modified versions need written permission. See [LICENSE](LICENSE).
+
+These scripts are provided as is, without warranty. They are not affiliated with or endorsed by Microsoft, Lenovo, AnyDesk Software GmbH or Apple.
