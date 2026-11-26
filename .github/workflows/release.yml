@@ -1,8 +1,11 @@
 name: Release
 
-# Push a tag like v1.1.0 to build IntuneWinAppUtilGUI.exe from the script
-# and attach it, with every script, to a GitHub Release.
+# Publish a release on GitHub (Releases → Draft a new release → tag like v2.0.0),
+# or push a tag like v2.0.1, and this builds IntuneWinAppUtilGUI.exe from the
+# script and attaches it, with zipped scripts, to that release.
 on:
+  release:
+    types: [published]
   push:
     tags: ['v*']
 
@@ -20,7 +23,7 @@ jobs:
           Install-Module ps2exe -Force -Scope CurrentUser
           Invoke-ps2exe -inputFile windows/intunewin-gui/IntuneWinAppUtilGUI.ps1 `
             -outputFile IntuneWinAppUtilGUI.exe -noConsole -STA `
-            -title 'IntuneWinAppUtil GUI' -company 'Mohammed AlAttar' -version ($env:GITHUB_REF_NAME.TrimStart('v'))
+            -title 'IntuneWinAppUtil GUI' -company 'Mohammed AlAttar' -version ('${{ github.event.release.tag_name || github.ref_name }}'.TrimStart('v'))
       - name: Package the macOS scripts
         shell: pwsh
         run: |
@@ -29,6 +32,7 @@ jobs:
       - name: Publish the release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.event.release.tag_name || github.ref_name }}
           generate_release_notes: true
           files: |
             IntuneWinAppUtilGUI.exe
