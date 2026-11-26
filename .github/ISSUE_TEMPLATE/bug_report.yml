@@ -1,0 +1,30 @@
+name: Bug report
+description: A script didn't do what it should
+labels: [bug]
+body:
+  - type: dropdown
+    id: script
+    attributes:
+      label: Which script?
+      options:
+        - IntuneWinAppUtil GUI (Windows)
+        - Lenovo Warranty Scanner (Windows)
+        - Microsoft Defender Removal (macOS)
+        - AnyDesk Removal (macOS)
+        - macOS Cache Cleaner
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system and version
+      placeholder: e.g. macOS 15.2, Windows 11 24H2
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+      description: Paste the output or error. Remove serial numbers, names and anything private.
+    validations:
+      required: true
